@@ -17,6 +17,15 @@ app.get("/api/posts", (req, res) => {
   res.json(posts);
 });
 
+//Get single post
+app.get("/api/posts/:id", (req, res) => {
+  const post = posts.find((p) => p.id === parseInt(req.params.id));
+  if (!post) {
+    return res.status(404).json({ message: "Post not found" });
+  }
+  res.json(post);
+});
+
 const PORT = process.env.PORT || 8000;
 
 app.listen(PORT, () => {
