@@ -12,11 +12,12 @@ let posts = [
   { id: 3, title: "Post 3", content: "This is post 3" },
 ];
 
+//Get all posts
 app.get("/api/posts", (req, res) => {
   res.json(posts);
 });
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 8000;
 
 app.listen(PORT, () => {
   console.log(`Server started on port ${PORT}`);
