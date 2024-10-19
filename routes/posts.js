@@ -31,8 +31,47 @@ router.post("/", (req, res) => {
   const { title, content } = req.body;
   const id = posts.length + 1;
   const newPost = { id, title, content };
+
+  if (!title || !content) {
+    return res
+      .status(400)
+      .json({ message: "Please provide title and content" });
+  }
+
   posts.push(newPost);
   res.status(201).json(newPost);
+});
+
+// Update post
+router.put("/:id", (req, res) => {
+  const post = posts.find((p) => p.id === parseInt(req.params.id));
+  if (!post) {
+    return res.status(404).json({ message: "Post not found" });
+  }
+
+  const { title, content } = req.body;
+
+  if (title) {
+    post.title = title;
+  }
+  if (content) {
+    post.content = content;
+  }
+
+  res.status(200).json(post);
+});
+
+// Delete post
+router.delete("/:id", (req, res) => {
+  const post = posts.find((p) => p.id === parseInt(req.params.id));
+  if (!post) {
+    return res.status(404).json({ message: "Post not found" });
+  }
+
+  const index = posts.indexOf(post);
+  posts.splice(index, 1);
+
+  res.status(200).json({ message: "Post deleted successfully" });
 });
 
 export default router;
