@@ -26,4 +26,13 @@ router.get(":id", (req, res) => {
   res.status(200).json(post);
 });
 
+// Create new post
+router.post("/", (req, res) => {
+  const { title, content } = req.body;
+  const id = posts.length + 1;
+  const newPost = { id, title, content };
+  posts.push(newPost);
+  res.status(201).json(newPost);
+});
+
 export default router;
