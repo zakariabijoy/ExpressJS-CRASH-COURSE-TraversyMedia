@@ -18,7 +18,7 @@ router.get("/", (req, res) => {
 });
 
 //Get single post
-router.get(":id", (req, res) => {
+router.get("/:id", (req, res) => {
   const post = posts.find((p) => p.id === parseInt(req.params.id));
   if (!post) {
     return res.status(404).json({ message: "Post not found" });
