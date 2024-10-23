@@ -17,6 +17,10 @@ const app = express();
 // setup static folder
 app.use(express.static(path.join(__dirname, "public")));
 
+//config ejs
+app.set("view engine", "ejs");
+app.set("views", "views");
+
 // Body Parser Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -26,6 +30,15 @@ app.use(logger);
 
 //Routes
 app.use("/api/posts", posts);
+
+// server side view rendering
+app.get("/view", (req, res) => {
+  res.render("index", {
+    title: "Welcome to my Blog",
+    message: "Hello from EJS",
+    people: ["John", "Mary", "Bob"],
+  });
+});
 
 //error handling middleware
 app.use(notFound);
